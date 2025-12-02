@@ -1,54 +1,54 @@
-import ProductData from './ProductData.mjs';
+import ProductData from '../js/ProductData.mjs'; // adjust path if needed
 
-function getWishlist() {
-  return JSON.parse(localStorage.getItem("wishlist")) || [];
-}
+const wishlistList = document.querySelector("#wishlistList");
+const emptyMessage = document.querySelector("#emptyMessage");
 
-function removeFromWishlist(productId) {
-  const wishlist = getWishlist().filter(id => id !== productId);
-  localStorage.setItem("wishlist", JSON.stringify(wishlist));
-  renderWishlist();
-}
+const tents = new ProductData("tents");
+
+// Get wishlist from localStorage
+let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
 
 function renderWishlist() {
-  const wishlist = getWishlist();
-  const listEl = document.querySelector("#wishlistList");
-  const emptyEl = document.querySelector("#emptyMessage");
-  listEl.innerHTML = "";
+  // Clear current list
+  wishlistList.innerHTML = "";
 
   if (wishlist.length === 0) {
-    emptyEl.style.display = "block";
+    emptyMessage.style.display = "block";
     return;
   } else {
-    emptyEl.style.display = "none";
+    emptyMessage.style.display = "none";
   }
 
-  const tents = new ProductData("tents");
   tents.getData().then(products => {
-    products
-      .filter(p => wishlist.includes(p.Id))
-      .forEach(product => {
-        const li = document.createElement("li");
-        li.className = "product-card";
+    // Filter only wishlist products
+    const wishlistProducts = products.filter(p => wishlist.includes(p.Id.toString()));
 
-        li.innerHTML = `
-          <a href="product.html?product=${product.Id}">
-            <img src="${product.Image}" alt="${product.Name}">
-            <h3 class="card__brand">${product.Brand.Name}</h3>
-            <h2 class="card__name">${product.Name}</h2>
-            <p class="product-card__price">$${product.FinalPrice.toFixed(2)}</p>
-          </a>
-          <button class="removeBtn" data-id="${product.Id}">Remove ❌</button>
-        `;
-        listEl.appendChild(li);
-      });
+    wishlistProducts.forEach(product => {
+      const li = document.createElement("li");
+      li.className = "product-card";
 
-    document.querySelectorAll(".removeBtn").forEach(btn => {
-      btn.addEventListener("click", e => {
-        removeFromWishlist(e.target.dataset.id);
-      });
+      li.innerHTML = `
+        <img src="${product.Image}" alt="${product.Name}">
+        <h3 class="card__brand">${product.Brand.Name}</h3>
+        <h2 class="card__name">${product.Name}</h2>
+        <p class="product-card__price">$${product.FinalPrice.toFixed(2)}</p>
+        <button class="remove-btn" data-id="${product.Id}">Remove ❤️</button>
+      `;
+
+      wishlistList.appendChild(li);
     });
   });
 }
 
+// Remove product from wishlist
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("remove-btn")) {
+    const productId = e.target.dataset.id;
+    wishlist = wishlist.filter(id => id !== productId);
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    renderWishlist();
+  }
+});
+
+// Initial render
 renderWishlist();

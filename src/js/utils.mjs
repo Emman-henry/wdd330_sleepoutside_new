@@ -21,3 +21,35 @@ export function setClick(selector, callback) {
   });
   qs(selector).addEventListener("click", callback);
 }
+
+// Load HTML template from file
+export async function loadTemplate(path) {
+  const response = await fetch(path);
+  if (!response.ok) throw new Error(`Failed to load template: ${path}`);
+  return await response.text();
+}
+
+// Render template into a parent element, optional callback
+export function renderWithTemplate(template, parent, data, callback) {
+  parent.innerHTML = template;
+  if (callback) callback();
+}
+
+// Load header and footer dynamically
+// Load header and footer dynamically
+export async function loadHeaderFooter() {
+  const headerEl = qs("#site-header");
+  const footerEl = qs("#site-footer");
+
+  if (!headerEl || !footerEl) return;
+
+  try {
+    const headerTemplate = await loadTemplate("./partials/header.html");
+    const footerTemplate = await loadTemplate("./partials/footer.html");
+
+    renderWithTemplate(headerTemplate, headerEl);
+    renderWithTemplate(footerTemplate, footerEl);
+  } catch (error) {
+    console.error("Error loading header/footer:", error);
+  }
+}
