@@ -44,9 +44,8 @@ export async function loadHeaderFooter() {
   if (!headerEl || !footerEl) return;
 
   try {
-    const headerTemplate = await loadTemplate("./partials/header.html");
-    const footerTemplate = await loadTemplate("./partials/footer.html");
-
+    const headerTemplate = await loadTemplate("/partials/header.html");
+    const footerTemplate = await loadTemplate("/partials/footer.html");
     renderWithTemplate(headerTemplate, headerEl);
     renderWithTemplate(footerTemplate, footerEl);
   } catch (error) {
