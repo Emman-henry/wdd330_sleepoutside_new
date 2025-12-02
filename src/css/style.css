@@ -297,12 +297,15 @@ body.dark {
 }
 
 /* Example for cards */
-.product-card, .alert-card {
+.product-card,
+.alert-card {
   background-color: #f9f9f9;
   padding: 1rem;
   border-radius: 8px;
   margin-bottom: 1rem;
-  transition: background-color 0.3s, color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
 }
 
 body.dark .product-card,
@@ -463,4 +466,3 @@ body.dark-mode .dark-toggle {
   background: #fff;
   color: #000;
 }
-

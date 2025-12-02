@@ -1,4 +1,4 @@
-import ProductData from './ProductData.mjs';
+import ProductData from "./ProductData.mjs";
 
 const productDetails = document.querySelector("#productDetails");
 
@@ -9,8 +9,8 @@ const productId = params.get("product");
 // --- Load product data ---
 const tents = new ProductData("tents");
 
-tents.getData().then(products => {
-  const product = products.find(p => p.Id == productId);
+tents.getData().then((products) => {
+  const product = products.find((p) => p.Id == productId);
 
   if (!product) {
     productDetails.innerHTML = "<p>Product not found.</p>";

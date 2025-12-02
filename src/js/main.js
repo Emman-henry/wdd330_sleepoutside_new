@@ -1,12 +1,12 @@
-import ProductData from './ProductData.mjs';
-import { loadHeaderFooter } from './utils.mjs';
+import ProductData from "./ProductData.mjs";
+import { loadHeaderFooter } from "./utils.mjs";
 
 const productList = document.querySelector("#productList");
 const tents = new ProductData("tents");
 
 // Display products dynamically
-tents.getData().then(products => {
-  products.forEach(product => {
+tents.getData().then((products) => {
+  products.forEach((product) => {
     const li = document.createElement("li");
     li.className = "product-wrapper";
 

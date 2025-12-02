@@ -1,21 +1,19 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-  <title>Wildlife Alerts</title>
-  <link rel="stylesheet" href="../css/style.css">
-</head>
+  <head>
+    <title>Wildlife Alerts</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
 
-<body>
+  <body>
+    <h1>Wildlife Alerts</h1>
 
-  <h1>Wildlife Alerts</h1>
+    <input id="park-input" placeholder="Enter Park Code (ex: YOSE)" />
+    <button id="search-alerts">Search</button>
 
-  <input id="park-input" placeholder="Enter Park Code (ex: YOSE)">
-  <button id="search-alerts">Search</button>
+    <div id="wildlife-alerts"></div>
 
-  <div id="wildlife-alerts"></div>
-
-  <!-- IMPORTANT: module script -->
-  <script type="module" src="../js/wildlife.js"></script>
-
-</body>
+    <!-- IMPORTANT: module script -->
+    <script type="module" src="../js/wildlife.js"></script>
+  </body>
 </html>

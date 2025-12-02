@@ -1,4 +1,4 @@
-import ProductData from '../js/ProductData.mjs'; // adjust path if needed
+import ProductData from "../js/ProductData.mjs"; // adjust path if needed
 
 const wishlistList = document.querySelector("#wishlistList");
 const emptyMessage = document.querySelector("#emptyMessage");
@@ -19,11 +19,13 @@ function renderWishlist() {
     emptyMessage.style.display = "none";
   }
 
-  tents.getData().then(products => {
+  tents.getData().then((products) => {
     // Filter only wishlist products
-    const wishlistProducts = products.filter(p => wishlist.includes(p.Id.toString()));
+    const wishlistProducts = products.filter((p) =>
+      wishlist.includes(p.Id.toString()),
+    );
 
-    wishlistProducts.forEach(product => {
+    wishlistProducts.forEach((product) => {
       const li = document.createElement("li");
       li.className = "product-card";
 
@@ -44,7 +46,7 @@ function renderWishlist() {
 document.addEventListener("click", (e) => {
   if (e.target.classList.contains("remove-btn")) {
     const productId = e.target.dataset.id;
-    wishlist = wishlist.filter(id => id !== productId);
+    wishlist = wishlist.filter((id) => id !== productId);
     localStorage.setItem("wishlist", JSON.stringify(wishlist));
     renderWishlist();
   }
